@@ -22,6 +22,7 @@ function createTable() {
     row.id = "Headers";
     var heading = document.createElement("th");
     var text = document.createTextNode("Title");
+    heading.style.width = "150px";
     heading.appendChild(text);
     row.appendChild(heading);
     var heading = document.createElement("th");
@@ -29,14 +30,17 @@ function createTable() {
     heading.appendChild(text);
     row.appendChild(heading);
     var heading = document.createElement("th");
+    heading.style.width = "10%";
     var text = document.createTextNode("Price");
     heading.appendChild(text);
     row.appendChild(heading);
     var heading = document.createElement("th");
+    heading.style.width = "200px";
     var text = document.createTextNode("Genre");
     heading.appendChild(text);
     row.appendChild(heading);
     var heading = document.createElement("th");
+    heading.style.width = "100px";
     var text = document.createTextNode("Action");
     heading.appendChild(text);
     row.appendChild(heading);
@@ -47,69 +51,122 @@ function createTable() {
         var row = document.createElement("tr");
         //Inside each DVD
         for(var y = 0; y < dvdList[x].childNodes.length; y++){
-          if(dvdList[x].childNodes[y].nodeName != '#text'){
-            var column = document.createElement("td");
-            if(dvdList[x].childNodes[y].nodeName == 'genre'){
-              var innerTable = document.createElement("table");
-              for(var z = 0; z < dvdList[x].childNodes[y].childNodes.length; z++){
-                if(dvdList[x].childNodes[y].childNodes[z].nodeName != '#text'){
-                  var innerRow = document.createElement("tr");
-                  var innerColumn = document.createElement("td");
-                  var innerText = document.createTextNode(dvdList[x].childNodes[y].childNodes[z].firstChild.nodeValue);
-                  innerColumn.appendChild(innerText);
-                  innerRow.appendChild(innerColumn);
-                  innerTable.appendChild(innerRow);
-                }
-              }
-              column.appendChild(innerTable);
-            } else {
-              var text = document.createTextNode(dvdList[x].childNodes[y].firstChild.nodeValue);
-              column.appendChild(text);
+          var column = document.createElement("td");
+          column.id = dvdList[x].childNodes[y].nodeName;
+          if(dvdList[x].childNodes[y].nodeName == 'genre'){
+            var innerTable = document.createElement("table");
+            for(var z = 0; z < dvdList[x].childNodes[y].childNodes.length; z++){
+              var innerRow = document.createElement("tr");
+              var innerColumn = document.createElement("td");
+              var innerText = document.createTextNode(dvdList[x].childNodes[y].childNodes[z].firstChild.nodeValue);
+              innerColumn.appendChild(innerText);
+              innerRow.appendChild(innerColumn);
+              innerTable.appendChild(innerRow);
             }
-            row.appendChild(column);
+            column.appendChild(innerTable);
+          } else {
+            var text = document.createTextNode(dvdList[x].childNodes[y].firstChild.nodeValue);
+            column.appendChild(text);
           }
+          row.appendChild(column);
         }
         var col = document.createElement("td");
-        var button = document.createElement("input");
-        button.type = "button";
-        button.className = "btn btn-danger";
-        button.value = "Delete";
-        button.addEventListener("click", function(){
+        col.id = "actions";
+        var updButton = document.createElement("input");
+        updButton.type = "button";
+        updButton.className = "btn btn-default";
+        updButton.dataset.type = "Edit"
+        updButton.value = updButton.dataset.type;
+        updButton.addEventListener("click", function() {
+          if(this.dataset.type.toUpperCase() == "EDIT") {
+            var targetElem = this.parentElement.parentElement;
+            console.log(targetElem);
+            var targetXObj = parseAsXML(targetElem);
+            var xmlElement = findElementInXML(targetXObj);
+            var undoButton = document.createElement("input");
+            undoButton.type = "button";
+            undoButton.className = "btn btn-warning";
+            undoButton.value = "Reset";
+            undoButton.addEventListener("click", function() {
+              this.parentElement.firstChild.dataset.type = "Edit";
+              this.parentElement.firstChild.className = "btn btn-warning"
+              this.parentElement.firstChild.value = this.parentElement.firstChild.dataset.type;
+              this.remove();
+            });
+            this.parentElement.insertBefore(undoButton, this.nextSibling);
+            var name = targetElem.children[0];
+            var desc = targetElem.children[1];
+            var price = targetElem.children[2];
+            var genre = targetElem.children[3];
+            for(var x = 0; x < targetElem.children.length - 1; x++) {
+              var input = document.createElement("textarea");
+              input.style.width = "100%";
+              input.style.resize = "none";
+              input.className = "form-control";
+              if(targetElem.children[x].id.toUpperCase() == "GENRE") {
+                genres = new DOMParser().parseFromString(targetElem.children[x].innerHTML, "text/xml");
+                for(var y = 0; y < genres.firstChild.childNodes.length; y++) {
+                  input.value += genres.firstChild.childNodes[y].firstChild.firstChild.nodeValue + "\n";
+                }
+              } else {
+                input.value = targetElem.children[x].innerHTML;
+              }
+              targetElem.children[x].innerHTML = "";
+              targetElem.children[x].appendChild(input);
+              this.dataset.type = "Submit";
+              this.className = "btn btn-success"
+            }
+          } else if (this.dataset.type.toUpperCase() == "SUBMIT") {
+            this.nextSibling.remove();
+            this.dataset.type = "Edit";
+            this.className = "btn btn-warning"
+          }
+          this.value = this.dataset.type;
+        })
+        var delButton = document.createElement("input");
+        delButton.type = "button";
+        delButton.className = "btn btn-danger";
+        delButton.value = "Delete";
+        delButton.addEventListener("click", function(){
           //Match and delete data from XMLObject
           var targetElem = this.parentElement.parentElement;
           var targetXObj = parseAsXML(targetElem);
-          var listOfElem = xmldata.childNodes[1].childNodes;
-          var elemIndex;
-          for(var x = 0; x < listOfElem.length; x++) {
-            var name = targetXObj.childNodes[0].firstChild.nodeValue;
-            var desc = targetXObj.childNodes[1].firstChild.nodeValue;
-            var price = targetXObj.childNodes[2].firstChild.nodeValue;
-            var genres = [];
-            for(var y = 0; y < targetXObj.childNodes[3].childNodes.length; y++){
-              genres.push(targetXObj.childNodes[3].childNodes[y].firstChild.nodeValue)
-            }
-            if(name == listOfElem[x].childNodes[0].firstChild.nodeValue && desc == listOfElem[x].childNodes[1].firstChild.nodeValue && price == listOfElem[x].childNodes[2].firstChild.nodeValue && genres.length == listOfElem[x].childNodes[3].childNodes.length){
-              for (var z = 0; z < genres.length; z++) {
-                if(genres[z] == listOfElem[x].childNodes[3].childNodes[z].firstChild.nodeValue) {
-                  if(z == genres.length - 1) {
-                    listOfElem[x].remove();
-                  }
-                  continue;
-                } else {
-                  break;
-                }
-              }
-            }
-          }
+          findElementInXML(targetXObj).remove();
           createTable();
         });
-        col.appendChild(button);
+        col.appendChild(updButton);
+        col.appendChild(delButton);
         row.appendChild(col);
       }
       table.appendChild(row);
     }
     //Write Table to DOM
     body.appendChild(table);
+}
+
+function findElementInXML(targetXObj) {
+  var listOfElem = xmldata.childNodes[1].childNodes;
+  for(var x = 0; x < listOfElem.length; x++) {
+    var name = targetXObj.childNodes[0].firstChild.nodeValue;
+    var desc = targetXObj.childNodes[1].firstChild.nodeValue;
+    var price = targetXObj.childNodes[2].firstChild.nodeValue;
+    var genres = [];
+    for(var y = 0; y < targetXObj.childNodes[3].childNodes.length; y++){
+      genres.push(targetXObj.childNodes[3].childNodes[y].firstChild.nodeValue)
+    }
+    if(name == listOfElem[x].childNodes[0].firstChild.nodeValue && desc == listOfElem[x].childNodes[1].firstChild.nodeValue && price == listOfElem[x].childNodes[2].firstChild.nodeValue && genres.length == listOfElem[x].childNodes[3].childNodes.length){
+      for (var z = 0; z < genres.length; z++) {
+        if(genres[z] == listOfElem[x].childNodes[3].childNodes[z].firstChild.nodeValue) {
+          if(z == genres.length - 1) {
+            return listOfElem[x];
+          }
+          continue;
+        } else {
+          break;
+        }
+      }
+    }
+  }
 }
 
 function parseAsXML(elem) {
@@ -188,7 +245,6 @@ function insertDVD() {
     }
   }
 }
-
 
 function clean(node){
   for(var n = 0; n < node.childNodes.length; n ++){

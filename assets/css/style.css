@@ -3,3 +3,5 @@ th {background-color: #c1c1ff;}
 td {background-color: #ffffc1;}
 tr {border-bottom: 1px solid #ccc;}
 th, td {text-align: left; padding: 4px;}
+#actions .btn {width: 75px;}
+.btn {width: 100%;}
