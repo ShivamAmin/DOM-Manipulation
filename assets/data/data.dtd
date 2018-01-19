@@ -1,0 +1,7 @@
+<!ELEMENT dvds (dvd+)>
+<!ELEMENT dvd (name,desc,price,genre)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT desc (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT genre (type+)>
+<!ELEMENT type (#PCDATA)>

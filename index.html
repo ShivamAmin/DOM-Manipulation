@@ -1,0 +1,57 @@
+<!-- Author: Shivam Amin -->
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/scripts/script.js"></script>
+  </head>
+  <body>
+    <form>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="Name">
+      </div>
+      <div class="form-group">
+        <label for="desc">Description:</label>
+        <textarea class="form-control" id="desc"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input class="form-control" type="text" id="price" name="Price">
+      </div>
+      <div class="form-group">
+        <label for="genre">Genre(s):</label>
+        <select multiple class="form-control" id="genre" name="Genre">
+          <option>Action</option>
+          <option>Adventure</option>
+          <option>Comedy</option>
+          <option>Crime</option>
+          <option>Drama</option>
+          <option>Fantasy</option>
+          <option>Historical</option>
+          <option>Historical fiction</option>
+          <option>Horror</option>
+          <option>Magical realism</option>
+          <option>Mystery</option>
+          <option>Paranoid</option>
+          <option>Philisophical</option>
+          <option>Political</option>
+          <option>Romance</option>
+          <option>Saga</option>
+          <option>Satire</option>
+          <option>Science Fiction</option>
+          <option>Slice of life</option>
+          <option>Social</option>
+          <option>Speculative</option>
+          <option>Thriller</option>
+          <option>Urban</option>
+          <option>Western</option>
+          <option>Animation</option>
+        </select>
+      </div>
+      <input type="button" class="btn btn-info" value="Insert DVD" onclick="insertDVD()">
+    </form>
+  </body>
+</html>

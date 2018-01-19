@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dvds SYSTEM "data.dtd">
+<dvds>
+  <dvd>
+    <name>The Office (US)</name>
+    <desc>This U.S. adaptation -- set at a paper company based in Scranton, Pa. -- has a similar documentary style to that of the Ricky Gervais-led British original. It features the Dunder-Mifflin staff, which includes characters based on roles in the British show -- and, quite possibly, people with whom you work in your office. There's Jim, the likable employee who's a bit of an every man. Jim has a thing for receptionist-turned-sales-rep Pam -- because office romances are always a good idea! There's also Dwight, the co-worker who is successful but devoid of social skills and common sense.</desc>
+    <price>19.99</price>
+    <genre>
+      <type>Comedy</type>
+      <type>Drama</type>
+      <type>Mockumentary</type>
+    </genre>
+  </dvd>
+  <dvd>
+    <name>Killing Ground</name>
+    <desc>Sam and Ian take off on what they believe will be a peaceful camping trip. Their break turns into a battle for survival when they discover a bloody toddler wandering around in the bush and find that an incredibly disturbing crime has been committed. </desc>
+    <price>12.99</price>
+    <genre>
+      <type>Thriller</type>
+      <type>Horror</type>
+    </genre>
+  </dvd>
+  <dvd>
+    <name>Personal Shopper</name>
+    <desc>A young American in Paris works as a personal shopper for a celebrity. She seems to have the ability to communicate with spirits, like her recently deceased twin brother. Soon, she starts to receive ambiguous messages from an unknown source. </desc>
+    <price>12.99</price>
+    <genre>
+      <type>Drama</type>
+      <type>Thriller</type>
+      <type>Mystery</type>
+    </genre>
+  </dvd>
+  <dvd>
+    <name>Girls Trip</name>
+    <desc>Best friends Ryan, Sasha, Lisa and Dina are in for the adventure of a lifetime when they travel to New Orleans for the annual Essence Festival. Along the way, they rekindle their sisterhood and rediscover their wild side by doing enough dancing, drinking, brawling and romancing to make the Big Easy blush. </desc>
+    <price>19.99</price>
+    <genre>
+      <type>Comedy</type>
+    </genre>
+  </dvd>
+  <dvd>
+    <name>Shot Caller</name>
+    <desc>Recently released from prison, a gang member finds himself forced by his leaders to orchestrate a major crime with a rival gang. </desc>
+    <price>12.99</price>
+    <genre>
+      <type>Thriller</type>
+      <type>Crime Drama</type>
+    </genre>
+  </dvd>
+</dvds>
